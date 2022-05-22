@@ -1,0 +1,134 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1864ab;
+
+  font-family: "Poppins", sans-serif;
+}
+
+.container {
+  padding: 23px;
+  /* width: 100vw; */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.title {
+  display: flex;
+  justify-content: start;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 54px;
+  color: #fff;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.content {
+  position: relative;
+  padding: 24px;
+  padding-bottom: 80px;
+  background-color: #fff;
+  width: 464px;
+  border-radius: 24px;
+}
+
+ul {
+  display: flex;
+  list-style: none;
+  gap: 12px;
+  flex-direction: column;
+}
+.question {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2f527b;
+  line-height: 36px;
+  margin-bottom: 32px;
+  margin-top: 40px;
+}
+.answer_item {
+  height: 56px;
+  /* width: 100%; */
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 15px 19px;
+
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 27px;
+
+  border: 2px solid #6066d0;
+  color: #6066d0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.action {
+  display: flex;
+  justify-content: end;
+  position: relative;
+  margin-top: 24px;
+}
+.point {
+  font-size: 24px;
+  font-weight: 500;
+  padding-left: 16px;
+  padding-right: 35px;
+}
+.next {
+  position: absolute;
+  width: 50%;
+  height: 56px;
+  background: #f9a826;
+  box-shadow: 0px 2px 4px rgba(252, 168, 47, 0.4);
+  border-radius: 12px;
+  color: white;
+  border: none;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 27px;
+  padding: 15px 36px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.next:hover {
+  background-color: #f59f00;
+}
+
+/* .checked,
+.answer_item:hover {
+  background-color: #f9a826;
+  color: white;
+  border-color: #f9a826;
+} */
+.yes {
+  background-color: #66a80f;
+  color: white;
+  border-color: #66a80f;
+}
+.no {
+  background-color: #e03131;
+  color: white;
+  border-color: #e03131;
+}
+
+
+@media screen and (max-width: 500px) {
+  .content {
+    width: 100%;
+    /* height: 100vh; */
+  }
+  .next {
+    width: 100%;
+  }
+}
