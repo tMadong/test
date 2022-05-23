@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
+import AnswerItem from "./components/AnswerItem/AnswerItem";
+import Button from "./components/Button/Button";
+import Result from "./components/Result/Result";
 
 const DATA = [
   {
@@ -22,64 +25,62 @@ const DATA = [
     answers: ["Токио", "Оттава", "Пекин", "Хиросима"],
     correctAnswer: "Токио",
   },
+  {
+    question: "Столица Австрии",
+    answers: ["Вена", "Зальцбург", "Инсбурк", "Амстердам"],
+    correctAnswer: "Вена",
+  },
+  {
+    question: "Столица Аргентины",
+    answers: ["Росарио", "Кордова", "Буэнос-Айрес", "Чили"],
+    correctAnswer: "Буэнос-Айрес",
+  },
+  {
+    question: "Столица Белорусии",
+    answers: ["Брест", "Гомель", "Минск", "Витебск"],
+    correctAnswer: "Минск",
+  },
+  {
+    question: "Столица Болгарии",
+    answers: ["София", "Верна", "Пловдив", "Косово"],
+    correctAnswer: "София",
+  },
 ];
-
-const AnswerItem = ({
-  point,
-  text,
-  checkAnswerHandler,
-  currentAnswer,
-  correctAnswer,
-}) => {
-  const [isChecked, setIsChecked] = useState(false);
-  const onClickHandler = () => {
-    if (!currentAnswer) {
-      checkAnswerHandler(text);
-      setIsChecked(true);
-    }
-  };
-  let style;
-
-  if (currentAnswer) {
-    if (text === correctAnswer) {
-      style = "yes";
-    } else {
-      style = isChecked ? "no" : "";
-    }
-  }
-
-  return (
-    <div className={`answer_item ${style}`} onClick={onClickHandler}>
-      <p className="point">{point}</p>
-      <p className="answer_text">{text}</p>
-    </div>
-  );
-};
-
-const Button = ({ onClickHandler, type, btnText }) => {
-  return (
-    <button onClick={onClickHandler} className={`next ${type}`}>
-      {btnText}
-    </button>
-  );
-};
-
-const Result = ({ correctAnswersCount, totalAnswersCount }) => {
-  return (
-    <div>
-      <p>{`Правильных ответов ${correctAnswersCount} из ${totalAnswersCount}`}</p>
-    </div>
-  );
-};
 
 const App = () => {
   const [showResult, setShowResult] = useState(false);
   const [correctAnswersCount, setCorrectAsnwersCount] = useState(0);
-  const [currentQuestionId, setCurrentQuestionId] = useState(0);
+  const [currentQuestionId, setCurrentQuestionId] = useState(7);
   const [currentAnswer, setCurrentAnswer] = useState(null);
+  const [data, setData] = useState([]);
 
-  const correctAnswer = DATA[currentQuestionId].correctAnswer;
-  console.log("render");
+  const url =
+    "https://quize-57337-default-rtdb.europe-west1.firebasedatabase.app//questions/-N2kn8zrGM1n1B6xMRQd.json";
+  // const requestData = async () => {
+  //   const response = await fetch(url, {
+  //     method: "POST",
+  //     body: JSON.stringify(DATA),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   const data = await response.json();
+  //   return data;
+  // };
+  const getData = async () => {
+    const response = await fetch(url);
+    const data = await response.json();
+    setData(data);
+  };
+
+  let correctAnswer;
+  useEffect(() => {
+    getData();
+  }, []);
+
+  if (data.length >= 1)
+    correctAnswer = data[currentQuestionId].correctAnswer;
+
   const checkAnswerHandler = (answer) => {
     setCurrentAnswer(answer);
     if (answer === correctAnswer) {
@@ -88,7 +89,7 @@ const App = () => {
   };
 
   const changeQuestionHandler = () => {
-    if (currentQuestionId < DATA.length - 1) {
+    if (currentQuestionId < data.length - 1) {
       setCurrentQuestionId((state) => state + 1);
       setCurrentAnswer(null);
     } else setShowResult(true);
@@ -109,29 +110,34 @@ const App = () => {
           <>
             <Result
               correctAnswersCount={correctAnswersCount}
-              totalAnswersCount={DATA.length}
+              totalAnswersCount={data.length}
             />
             <div className="action">
+              <Button btnText={"Menu"} onClickHandler={reset} />
               <Button btnText={"Again"} onClickHandler={reset} />
             </div>
           </>
         ) : (
           <>
-            <div className="question">
-              {DATA[currentQuestionId].question}
-            </div>
+            {data.length > 0 && (
+              <div className="question">
+                <img src={data[currentQuestionId].img} />
+                <p> {data[currentQuestionId].question}</p>
+              </div>
+            )}
 
             <ul>
-              {DATA[currentQuestionId].answers.map((item, index) => (
-                <AnswerItem
-                  key={item}
-                  text={item}
-                  point={points[index]}
-                  checkAnswerHandler={checkAnswerHandler}
-                  currentAnswer={currentAnswer}
-                  correctAnswer={correctAnswer}
-                />
-              ))}
+              {data.length > 0 &&
+                data[currentQuestionId].answers.map((item, index) => (
+                  <AnswerItem
+                    key={item}
+                    text={item}
+                    point={points[index]}
+                    checkAnswerHandler={checkAnswerHandler}
+                    currentAnswer={currentAnswer}
+                    correctAnswer={correctAnswer}
+                  />
+                ))}
             </ul>
             <div className="action">
               {currentAnswer && (

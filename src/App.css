@@ -7,12 +7,12 @@
 body {
   background-color: #1864ab;
 
-  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", "Poppins", sans-serif;
 }
 
 .container {
   padding: 23px;
-  /* width: 100vw; */
+  width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -31,14 +31,21 @@ body {
 }
 
 .content {
+  min-height: 500px;
   position: relative;
   padding: 24px;
-  padding-bottom: 80px;
   background-color: #fff;
   width: 464px;
   border-radius: 24px;
 }
-
+.result {
+  min-height: 396px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 50px;
+  align-items: center;
+}
 ul {
   display: flex;
   list-style: none;
@@ -46,13 +53,26 @@ ul {
   flex-direction: column;
 }
 .question {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  gap: 20px;
   font-size: 24px;
   font-weight: 700;
   color: #2f527b;
   line-height: 36px;
   margin-bottom: 32px;
   margin-top: 40px;
+  /* background-color: #6066d0; */
+  /* color: white; */
+  padding: 0 10px;
+  border-radius: 24px;
 }
+/* .question img {
+  background-color: #e9ecef;
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+} */
+
 .answer_item {
   height: 56px;
   /* width: 100%; */
@@ -69,14 +89,15 @@ ul {
   color: #6066d0;
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s;
+  /* transition: all 0.3s; */
 }
 
 .action {
   display: flex;
-  justify-content: end;
-  position: relative;
   margin-top: 24px;
+  gap: 20px;
+  justify-content: end;
+  min-height: 70px;
 }
 .point {
   font-size: 24px;
@@ -85,7 +106,6 @@ ul {
   padding-right: 35px;
 }
 .next {
-  position: absolute;
   width: 50%;
   height: 56px;
   background: #f9a826;
@@ -122,7 +142,6 @@ ul {
   border-color: #e03131;
 }
 
-
 @media screen and (max-width: 500px) {
   .content {
     width: 100%;
@@ -131,4 +150,28 @@ ul {
   .next {
     width: 100%;
   }
+  .action {
+    flex-direction: column;
+  }
+}
+
+.result_title {
+  font-size: 44px;
+  font-weight: 700;
+  color: #2f527b;
+}
+.results {
+  font-size: 20px;
+}
+.result_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+}
+.result_value {
+  font-weight: 700;
+  color: #66a80f;
+  font-size: 25px;
 }
